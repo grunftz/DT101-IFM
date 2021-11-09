@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- ************************************************************************************************* -->
+<!--                            GSDML V2.3 file for DTE101                                             -->
+<!-- $Rev: 11472 $                                                                                     -->
+<!-- $Date: 2014-03-19 16:27:55 +0100 (Mi, 19 Mrz 2014) $                                              --> 
+<!-- History:                                                                                          --> 
+<!-- Remark: Search for "Edit_version" in this file to actualize entry V2.3.X of followed history      -->
+<!-- 2014-07-02 SY-sp: V2.3.3 Changed OrderNumber to remove device release information AA              -->  
+<!-- 2014-03-19 SY-sp: V2.3.2 Added new entry "SupportedRT_Classes"                                    --> 
+<!-- 2014-01-17 SY-sp: V2.3.1 First release version                                                    --> 
+<!--                   Base version was GSDML-V2.1-ifm-DTE101-PN-20130913.xml V1.06 Rev.10149          --> 
+<!-- ************************************************************************************************* -->
+<ISO15745Profile xmlns="http://www.profibus.com/GSDML/2003/11/DeviceProfile" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.profibus.com/GSDML/2003/11/DeviceProfile ..\xsd\GSDML-DeviceProfile-V2.3.xsd">
+    <ProfileHeader>
+        <ProfileIdentification>PROFINET Device Profile</ProfileIdentification>
+        <ProfileRevision>1.00</ProfileRevision>
+        <ProfileName>Device Profile for PROFINET Devices</ProfileName>
+        <ProfileSource>PROFIBUS Nutzerorganisation e. V. (PNO)</ProfileSource>
+        <ProfileClassID>Device</ProfileClassID>
+        <ISO15745Reference>
+            <ISO15745Part>4</ISO15745Part>
+            <ISO15745Edition>1</ISO15745Edition>
+            <ProfileTechnology>GSDML</ProfileTechnology>
+        </ISO15745Reference>
+    </ProfileHeader>
+    <ProfileBody>
+        <DeviceIdentity VendorID="0x0136" DeviceID="0xE101">
+            <InfoText TextId="IDT_FamilyDescription" />
+            <VendorName Value="ifm electronic gmbh" />
+        </DeviceIdentity>
+        <DeviceFunction>
+            <Family MainFamily="Gateway" ProductFamily="ifm electronic" />
+        </DeviceFunction>
+        <ApplicationProcess>
+            <DeviceAccessPointList>
+                <!--*************************************************************************-->
+                <!--   DeviceAccessPointList DAP110                                          -->
+                <!--*************************************************************************-->
+                <DeviceAccessPointItem ID="DAP 110" PhysicalSlots="0..4" ModuleIdentNumber="0x11000000" MinDeviceInterval="32" ImplementationType="netX100" DNS_CompatibleName="DTE101-PN" FixedInSlots="0" ObjectUUID_LocalIndex="1" RequiredSchemaVersion="V2.1" NameOfStationNotTransferable="true" DeviceAccessSupported="true" PNIO_Version="V2.2">
+                    <!-- Module category -->                
+                    <ModuleInfo CategoryRef="IDC_RFID_MODULES_CATALOG_DIRECTORY">
+                        <Name TextId="IDT_DTE101_PN" />
+                        <InfoText TextId="IDT_INFO_ModInfo_InfoTextId_DAP1_RFID_EVU" />
+                        <VendorName Value="ifm electronic gmbh" />                                                                     
+                        <OrderNumber Value="DTE101" /> <!-- This entry must match with order number stored in the device --> 
+                        <HardwareRelease Value="5" />
+                        <SoftwareRelease Value="V1.1" />
+                    </ModuleInfo>                    
+                    <!-- Physical subslot list -->
+                    <SubslotList>
+                        <SubslotItem SubslotNumber="32768" TextId="IDT_INTERFACE" />
+                        <SubslotItem SubslotNumber="32769" TextId="IDT_INTERFACE_PORT1" />
+                        <SubslotItem SubslotNumber="32770" TextId="IDT_INTERFACE_PORT2" />
+                    </SubslotList>
+                    <!-- IO configuration data length -->
+                    <IOConfigData MaxInputLength="1024" MaxOutputLength="1024" />
+                    <!-- Module definitions -->
+                    <UseableModules>
+                        <!-- Channel IO-1 ... IO-4 modules -->
+                        <ModuleItemRef ModuleItemTarget="IDM_MOD_100_INACTIVE" AllowedInSlots="1..4" UsedInSlots="1..4" />
+                        <ModuleItemRef ModuleItemTarget="IDM_MOD_101_INPUT" AllowedInSlots="1..4" />
+                        <ModuleItemRef ModuleItemTarget="IDM_MOD_102_OUTPUT" AllowedInSlots="1..4" />
+                        <ModuleItemRef ModuleItemTarget="IDM_MOD_111_RWH_RW" AllowedInSlots="1..4" />                                                   
+                    </UseableModules>
+                    <!-- Systemsubmodules -->  
+                    <VirtualSubmoduleList>
+                        <VirtualSubmoduleItem ID="DAP 4" SubmoduleIdentNumber="0x01000001" Writeable_IM_Records="1">
+                            <IOData IOPS_Length="1" IOCS_Length="1" />
+                            <RecordDataList>
+                                <ParameterRecordDataItem Index="0" Length="8" TransferSequence="1">
+                                    <Name TextId="IDT_DEVICE_SPECIFIC_PARA_DIRECTORY" />                          
+                                    <!-- the parameter bytes array (place holder) -->                               
+                                    <Const ByteOffset="0" Data="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" />                    
+                                    <!-- Channel configuration -->
+                                    <Ref ValueItemTarget="REF_FAIL_SAFE_ID" DataType="Unsigned8" ByteOffset="0" DefaultValue="0" AllowedValues="0..1" Changeable="true" Visible="true" TextId="IDT_FAIL_SAFE_ID" />
+                                    <Ref ValueItemTarget="REF_EXT_DIAG_ID" DataType="Unsigned8" ByteOffset="1" DefaultValue="0" AllowedValues="0..1" Changeable="true" Visible="true" TextId="IDT_EXT_DIAG_ID" />
+                                    <Ref ValueItemTarget="REF_DIAG_INT_ID" DataType="Unsigned8" ByteOffset="2" DefaultValue="0" AllowedValues="0..1" Changeable="true" Visible="true" TextId="IDT_DIAG_INT_ID" />
+                                    <!-- Default value PHY1 control register 0xE8=232. Remark: Value valid for channel IO-1 ... IO-4 -->
+                                    <Ref ValueItemTarget="REF_PHY1_CTRL_ID" DataType="Unsigned8" ByteOffset="3" DefaultValue="0" AllowedValues="0 232" Changeable="true" Visible="true" TextId="IDT_PHY1_CTRL_SETTING_ID" />
+                                    <!-- Default value PHY2 control register 0x83=131. Remark: Value valid for channel IO-1 ... IO-4 -->
+                                    <Ref ValueItemTarget="REF_PHY2_CTRL_ID" DataType="Unsigned8" ByteOffset="4" DefaultValue="0" AllowedValues="0 131" Changeable="true" Visible="true" TextId="IDT_PHY2_CTRL_SETTING_ID" />
+                                </ParameterRecordDataItem>
+                            </RecordDataList>
+                            <ModuleInfo>
+                                <Name TextId="IDT_DTE101_PN" />
+                                <InfoText TextId="IDT_INFO_ModInfo_InfoTextId_DAP1_RFID_EVU" />
+                            </ModuleInfo>
+                        </VirtualSubmoduleItem>
+                    </VirtualSubmoduleList>
+                    <!-- Systemsubmodules -->  
+                    <SystemDefinedSubmoduleList>
+                        <InterfaceSubmoduleItem ID="IDS_110I" SupportedRT_Class="Class1" SupportedRT_Classes="RT_CLASS_1" SupportedProtocols="SNMP;LLDP" SupportedMibs="MIB" TextId="PN_IO" SubslotNumber="32768" SubmoduleIdentNumber="0x00000001">
+                            <ApplicationRelations NumberOfAdditionalInputCR="0" NumberOfAdditionalMulticastProviderCR="0" NumberOfAdditionalOutputCR="0" NumberOfMulticastConsumerCR="0">
+                                <TimingProperties SendClock="32 64 128" />
+                            </ApplicationRelations>
+                        </InterfaceSubmoduleItem>
+                        <PortSubmoduleItem ID="IDS_110P1" SubslotNumber="32769" MAUType="100BASETXFD" MAUTypes="16" LinkStateDiagnosisCapability="Up+Down" TextId="IDT_INTERFACE_PORT1" SubmoduleIdentNumber="0x00000002" />
+                        <PortSubmoduleItem ID="IDS_110P2" SubslotNumber="32770" MAUType="100BASETXFD" MAUTypes="16" LinkStateDiagnosisCapability="Up+Down" TextId="IDT_INTERFACE_PORT2" SubmoduleIdentNumber="0x00000002" />
+                    </SystemDefinedSubmoduleList>                                                               
+                    <!-- Graphic elements --> 
+                    <Graphics>
+                        <GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="IDG_DTE101_1" />
+                    </Graphics>
+                </DeviceAccessPointItem>       
+            </DeviceAccessPointList>
+            <ModuleList>
+                <!-- ************************************************************************* --> 
+                <!--    Slot 1..4 : Module "Inactive"                                          --> 
+                <!-- ************************************************************************* --> 
+                <ModuleItem ID="IDM_MOD_100_INACTIVE" ModuleIdentNumber="0x01000100">
+                    <ModuleInfo CategoryRef="IDC_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1">
+                        <Name TextId="IDT_MODULE_INACTIVE_CATALOG" /> 
+                        <InfoText TextId="IDT_MODULE_INACTIVE_CATALOG_INFO" /> 
+                        <OrderNumber Value="Output deactived" /> <!-- To be checked if L+ is also switched off --> 
+                    </ModuleInfo>
+                    <VirtualSubmoduleList>
+                        <VirtualSubmoduleItem ID="ID_SUB_MOD_INACTIVE" SubmoduleIdentNumber="0x01000100" API="0">
+                            <IOData IOPS_Length="1" IOCS_Length="1">
+                                <Input Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_INACTIVE" Length="20" UseAsBits="false" /> 
+                                </Input>
+                                <Output Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_INACTIVE" Length="20" UseAsBits="false" /> 
+                                </Output>
+                            </IOData>
+                           <RecordDataList>
+                                <ParameterRecordDataItem Index="0" Length="8" TransferSequence="1">
+                                    <Name TextId="IDT_MODULE_INACTIVE_PARA_DIRECTORY" />                          
+                                    <!-- the parameter bytes array (place holder) -->                               
+                                    <Const ByteOffset="0" Data="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" />                    
+                                    <!-- Channel configuration -->
+                                    <!-- Byte 0 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_NUMBER_ID" ByteOffset="0" BitOffset="0" DataType="Unsigned8" AllowedValues="1" DefaultValue="1" Changeable="false" Visible="true" TextId="IDT_CHANNEL_NUMBER_ID" />
+                                    <!-- Byte 1 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_CONFIGURATION_ID" ByteOffset="1" BitOffset="0" DataType="Unsigned8" AllowedValues="1" DefaultValue="1" Changeable="false" Visible="true" TextId="IDT_CHANNEL_CONFIGURATION_ID" />
+                                </ParameterRecordDataItem>
+                            </RecordDataList>
+                            <ModuleInfo>
+                                <Name TextId="IDT_MODULE_INACTIVE_CATALOG" />
+                                <InfoText TextId="IDT_MODULE_INACTIVE_CATALOG_INFO" />
+                            </ModuleInfo>
+                        </VirtualSubmoduleItem>
+                    </VirtualSubmoduleList>
+                </ModuleItem>
+                <!-- ************************************************************************* --> 
+                <!--    Slot 1..4: Module "Input"                                              --> 
+                <!-- ************************************************************************* --> 
+                <ModuleItem ID="IDM_MOD_101_INPUT" ModuleIdentNumber="0x01000101">                
+                    <ModuleInfo CategoryRef="IDC_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1">
+                        <Name TextId="IDT_MODULE_INPUT_CATALOG" /> 
+                        <InfoText TextId="IDT_MODULE_INPUT_CATALOG_INFO" /> 
+                        <OrderNumber Value="Two inputs" /> 
+                    </ModuleInfo>
+                    <VirtualSubmoduleList>
+                        <VirtualSubmoduleItem ID="ID_SUB_MOD_INPUT" SubmoduleIdentNumber="0x01000101" API="0">
+                            <IOData IOPS_Length="1" IOCS_Length="1">
+                                <Input Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_INPUT" Length="20" UseAsBits="false" /> 
+                                </Input>
+                                <Output Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_INPUT" Length="20" UseAsBits="false" /> 
+                                </Output>
+                            </IOData>
+                           <RecordDataList>
+                                <ParameterRecordDataItem Index="0" Length="8" TransferSequence="1">
+                                    <Name TextId="IDT_MODULE_INPUT_PARA_DIRECTORY" />                          
+                                    <!-- the parameter bytes array (place holder) -->                               
+                                    <Const ByteOffset="0" Data="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" />                    
+
+                                    <!-- Channel configuration -->
+                                    <!-- Byte 0 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_NUMBER_ID" ByteOffset="0" BitOffset="0" DataType="Unsigned8" AllowedValues="1" DefaultValue="1" Changeable="false" Visible="true" TextId="IDT_CHANNEL_NUMBER_ID" />
+                                    <!-- Byte 1 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_CONFIGURATION_ID" ByteOffset="1" BitOffset="0" DataType="Unsigned8" AllowedValues="2" DefaultValue="2" Changeable="false" Visible="true" TextId="IDT_CHANNEL_CONFIGURATION_ID" />
+                                    <!-- Byte 2 --> 
+                                    <Ref ValueItemTarget="REF_DATA_HOLDTIME_ID" ByteOffset="2" BitOffset="0" DataType="Unsigned8" AllowedValues="0 2 4 6 8 10 20 40 60 80 100 120 140 160 180 200" DefaultValue="0" Changeable="true" Visible="true" TextId="IDT_DATA_HOLDTIME_ID" />
+                                    <!-- Byte 4, Bit 0 --> 
+                                    <Ref ValueItemTarget="REF_OVERLOAD_DETECT_ID" ByteOffset="4" BitOffset="0" DataType="Bit" AllowedValues="0..1" DefaultValue="1" Changeable="true" Visible="true" TextId="IDT_OVERLOAD_DETECT_ID" />
+                                    <!-- Byte 5..7 reserved -->                                     
+                                    </ParameterRecordDataItem>
+                            </RecordDataList>
+                            <ModuleInfo>
+                                <Name TextId="IDT_MODULE_INPUT_CATALOG" />
+                                <InfoText TextId="IDT_MODULE_INPUT_CATALOG_INFO" />
+                            </ModuleInfo>
+                        </VirtualSubmoduleItem>
+                    </VirtualSubmoduleList>
+                </ModuleItem>
+                <!-- ************************************************************************* --> 
+                <!--    Slot 1..4: Module "Output"                                             --> 
+                <!-- ************************************************************************* --> 
+                <ModuleItem ID="IDM_MOD_102_OUTPUT" ModuleIdentNumber="0x01000102">                
+                    <ModuleInfo CategoryRef="IDC_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1">
+                        <Name TextId="IDT_MODULE_OUTPUT_CATALOG" /> 
+                        <InfoText TextId="IDT_MODULE_OUTPUT_CATALOG_INFO" /> 
+                        <OrderNumber Value="One output, one input" /> 
+                    </ModuleInfo>
+                    <VirtualSubmoduleList>
+                        <VirtualSubmoduleItem ID="ID_SUB_MOD_OUTPUT" SubmoduleIdentNumber="0x01000102" API="0">
+                            <IOData IOPS_Length="1" IOCS_Length="1">
+                                <Input Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_OUTPUT" Length="20" UseAsBits="false" /> 
+                                </Input>
+                                <Output Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_OUTPUT" Length="20" UseAsBits="false" /> 
+                                </Output>
+                            </IOData>
+                           <RecordDataList>
+                                <ParameterRecordDataItem Index="0" Length="8" TransferSequence="1">
+                                    <Name TextId="IDT_MODULE_OUTPUT_PARA_DIRECTORY" />                          
+                                    <!-- the parameter bytes array (place holder) -->                               
+                                    <Const ByteOffset="0" Data="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" />                    
+                                    <!-- Channel configuration -->
+                                    <!-- Byte 0 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_NUMBER_ID" ByteOffset="0" BitOffset="0" DataType="Unsigned8" AllowedValues="1" DefaultValue="1" Changeable="false" Visible="true" TextId="IDT_CHANNEL_NUMBER_ID" />
+                                    <!-- Byte 1 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_CONFIGURATION_ID" ByteOffset="1" BitOffset="0" DataType="Unsigned8" AllowedValues="3" DefaultValue="3" Changeable="false" Visible="true" TextId="IDT_CHANNEL_CONFIGURATION_ID" />
+                                    <!-- Byte 2 --> 
+                                    <Ref ValueItemTarget="REF_DATA_HOLDTIME_ID" ByteOffset="2" BitOffset="0" DataType="Unsigned8" AllowedValues="0 2 4 6 8 10 20 40 60 80 100 120 140 160 180 200" DefaultValue="0" Changeable="true" Visible="true" TextId="IDT_DATA_HOLDTIME_ID" />
+                                    <!-- Byte 4, Bit 0 --> 
+                                    <Ref ValueItemTarget="REF_OVERLOAD_DETECT_ID" ByteOffset="4" BitOffset="0" DataType="Bit" AllowedValues="0..1" DefaultValue="1" Changeable="true" Visible="true" TextId="IDT_OVERLOAD_DETECT_ID" />
+                                    <!-- Byte 4, Bit 1 --> 
+                                    <Ref ValueItemTarget="REF_OVERCURRENT_DETECT_ID" ByteOffset="5" BitOffset="1" DataType="Bit" AllowedValues="0..1" DefaultValue="1" Changeable="true" Visible="true" TextId="IDT_OVERCURRENT_DETECT_ID" />
+                                    <!-- Byte 5..7 reserved -->
+                                </ParameterRecordDataItem>
+                            </RecordDataList>
+                            <ModuleInfo>
+                                <Name TextId="IDT_MODULE_OUTPUT_CATALOG" />
+                                <InfoText TextId="IDT_MODULE_OUTPUT_CATALOG_INFO" />
+                            </ModuleInfo>
+                        </VirtualSubmoduleItem>
+                    </VirtualSubmoduleList> 
+                </ModuleItem>
+
+                <!-- Modules RWH_STRG/PIB occupy ModuleIdentNumber 0x01000103 ... 0x0100010A   -->
+
+                <!-- ************************************************************************* --> 
+                <!--    Slot 1..4: Module "RWH_RW"                                             --> 
+                <!-- ************************************************************************* --> 
+                <ModuleItem ID="IDM_MOD_111_RWH_RW" ModuleIdentNumber="0x0100010B">                
+                    <ModuleInfo CategoryRef="IDC_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1">
+                        <Name TextId="IDT_MODULE_RWH_RW_CATALOG" /> 
+                        <InfoText TextId="IDT_MODULE_RWH_RW_CATALOG_INFO" /> 
+                        <OrderNumber Value="Read/write head" /> 
+                    </ModuleInfo>
+                    <VirtualSubmoduleList>
+                        <VirtualSubmoduleItem ID="ID_SUB_MOD_RWH_RW" SubmoduleIdentNumber="0x0100010B" API="0">
+                            <IOData IOPS_Length="1" IOCS_Length="1">
+                                <Input Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_RWH_RW" Length="20" UseAsBits="false" /> 
+                                </Input>
+                                <Output Consistency="All items consistency">
+                                    <DataItem DataType="OctetString" TextId="IDT_MODULE_RWH_RW" Length="20" UseAsBits="false" /> 
+                                </Output>
+                            </IOData>
+                            <RecordDataList>
+                                <ParameterRecordDataItem Index="0" Length="8" TransferSequence="1">
+                                    <Name TextId="IDT_MODULE_RWH_RW_PARA_DIRECTORY" />                          
+                                    <!-- the parameter bytes array (place holder) -->                               
+                                    <Const ByteOffset="0" Data="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" />                    
+                                    <!-- Channel configuration -->
+                                    <!-- Byte 0 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_NUMBER_ID" ByteOffset="0" BitOffset="0" DataType="Unsigned8" AllowedValues="1" DefaultValue="1" Changeable="false" Visible="true" TextId="IDT_CHANNEL_NUMBER_ID" />
+                                    <!-- Byte 1 --> 
+                                    <Ref ValueItemTarget="REF_CHANNEL_CONFIGURATION_ID" ByteOffset="1" BitOffset="0" DataType="Unsigned8" AllowedValues="11" DefaultValue="11" Changeable="false" Visible="true" TextId="IDT_CHANNEL_CONFIGURATION_ID" />
+                                    <!-- Byte 2 --> 
+                                    <Ref ValueItemTarget="REF_DATA_HOLDTIME_ID" ByteOffset="2" BitOffset="0" DataType="Unsigned8" AllowedValues="0 2 4 6 8 10 20 40 60 80 100 120 140 160 180 200" DefaultValue="0" Changeable="true" Visible="true" TextId="IDT_DATA_HOLDTIME_ID" />
+                                    <!-- Byte 3 --> 
+                                    <Ref ValueItemTarget="REF_BLOCK_LENGTH_ID" ByteOffset="3" BitOffset="0" DataType="Unsigned8" AllowedValues="1 2 4 8 16 32 64 128 255" DefaultValue="4" Changeable="true" Visible="true" TextId="IDT_BLOCK_LENGTH_ID" />
+                                    <!-- Byte 4, Bit 0 --> 
+                                    <Ref ValueItemTarget="REF_OVERLOAD_DETECT_ID" ByteOffset="4" BitOffset="0" DataType="Bit" AllowedValues="0..1" DefaultValue="1" Changeable="true" Visible="true" TextId="IDT_OVERLOAD_DETECT_ID" />
+                                    <!-- Byte 4, Bit 1 --> 
+                                    <Ref ValueItemTarget="REF_OVERCURRENT_DETECT_ID" ByteOffset="4" BitOffset="1" DataType="Bit" AllowedValues="0..1" DefaultValue="1" Changeable="true" Visible="true" TextId="IDT_OVERCURRENT_DETECT_ID" />
+                                    <!-- Byte 4, Bit 2 --> 
+                                    <Ref ValueItemTarget="REF_UID_EDGE_CONTROL_ID" ByteOffset="4" BitOffset="2" DataType="Bit" AllowedValues="0..1" DefaultValue="0" Changeable="true" Visible="true" TextId="IDT_UID_EDGE_CONTROL_ID" />
+                                    <!-- Byte 4, Bit 3 --> 
+                                    <Ref ValueItemTarget="REF_TP_BIT_DELAYED_ID" ByteOffset="4" BitOffset="3" DataType="Bit" AllowedValues="0..1" DefaultValue="0" Changeable="true" Visible="true" TextId="IDT_TP_BIT_DELAYED_ID" />
+                                    <!-- Byte 5..7 reserved -->
+                                </ParameterRecordDataItem>
+                            </RecordDataList>
+                            <ModuleInfo>
+                                <Name TextId="IDT_MODULE_RWH_RW_CATALOG" />
+                                <InfoText TextId="IDT_MODULE_RWH_RW_CATALOG_INFO" />
+                            </ModuleInfo>
+                        </VirtualSubmoduleItem>
+                    </VirtualSubmoduleList> 
+                </ModuleItem>            
+            </ModuleList>
+            <!--****************************************************************************-->
+            <!--   ValueList                                                                -->
+            <!--****************************************************************************-->
+            <ValueList>
+                <!--************************************************************************-->
+                <!-- Device specific parameter                                              -->
+                <!--************************************************************************-->               
+                <!-- Fail safe mode  -->
+                <ValueItem ID="REF_FAIL_SAFE_ID">
+                    <Help TextId="IDT_FAIL_SAFE_SELECTION" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />
+                    </Assignments>
+                </ValueItem>
+
+                <!-- Extended diagnosis  -->               
+                <ValueItem ID="REF_EXT_DIAG_ID">
+                    <Help TextId="IDT_EXT_DIAG_SELECTION" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />
+                    </Assignments>
+                </ValueItem>
+
+                <!-- High priority diagnosis -->                
+                <ValueItem ID="REF_DIAG_INT_ID">
+                    <Help TextId="IDT_DIAG_INT_SELECTION" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />                        
+                    </Assignments>
+                </ValueItem>
+                
+                <!-- Phy control 1 register only visible for test purposes, normally fixed to default value by setting value to 0 -->
+                <ValueItem ID="REF_PHY1_CTRL_ID">
+                   <Help TextId="IDT_PHY1_CTRL_SETTING_ID" />
+                    <Assignments>
+                        <Assign TextId="IDT_PHY1_CTRL_VALUE1" Content="0" />
+                        <!-- Set here customer specific value for Phy control 1 register: -->
+                        <Assign TextId="IDT_PHY1_CTRL_VALUE2" Content="232" />
+                        </Assignments>
+                </ValueItem>
+
+                <!-- Phy control 2 register only visible for test purposes, normally fixed to default value by setting value to 0 -->                
+                <ValueItem ID="REF_PHY2_CTRL_ID">
+                   <Help TextId="IDT_PHY2_CTRL_SETTING_ID" />
+                    <Assignments>
+                        <Assign TextId="IDT_PHY2_CTRL_VALUE1" Content="0" />
+                        <!-- Set here customer specific value for Phy control 2 register -->
+                        <Assign TextId="IDT_PHY2_CTRL_VALUE2" Content="131" /> 
+                    </Assignments>
+                </ValueItem>              
+
+                <!--************************************************************************-->
+                <!-- Channel module parameter                                               -->
+                <!--************************************************************************-->                 
+                <!--- Channel number only visible for test purposes, real number can be decoded from slot number 1...4 --> 
+                <ValueItem ID="REF_CHANNEL_NUMBER_ID">         
+                    <Help TextId="IDT_CHANNEL_NUMBER_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_CHANNEL_NOT_USED" Content="1" />
+                    </Assignments>
+                </ValueItem>
+ 
+                <!-- Module selection -->
+                <ValueItem ID="REF_CHANNEL_CONFIGURATION_ID">                
+                    <Help TextId="IDT_CHANNEL_CONFIGURATION_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_MOD_INACTIVE" Content="1" />
+                        <Assign TextId="IDT_MOD_INPUT" Content="2" />
+                        <Assign TextId="IDT_MOD_OUTPUT" Content="3" />
+                        <Assign TextId="IDT_MOD_RWH_RW" Content="11" />
+                    </Assignments>
+                </ValueItem>
+ 
+                <!-- Data hold time -->
+                <ValueItem ID="REF_DATA_HOLDTIME_ID">              
+                    <Help TextId="IDT_DATA_HOLDTIME_HELP" />           
+                    <Assignments>
+                        <Assign TextId="IDT_0_ms" Content="0" />
+                        <Assign TextId="IDT_20_ms" Content="2" />
+                        <Assign TextId="IDT_40_ms" Content="4" />
+                        <Assign TextId="IDT_60_ms" Content="6" />
+                        <Assign TextId="IDT_80_ms" Content="8" />
+                        <Assign TextId="IDT_100_ms" Content="10" />
+                        <Assign TextId="IDT_200_ms" Content="20" />
+                        <Assign TextId="IDT_400_ms" Content="40" />                        
+                        <Assign TextId="IDT_600_ms" Content="60" />
+                        <Assign TextId="IDT_800_ms" Content="80" />
+                        <Assign TextId="IDT_1000_ms" Content="100" />                        
+                        <Assign TextId="IDT_1200_ms" Content="120" />                        
+                        <Assign TextId="IDT_1400_ms" Content="140" />                        
+                        <Assign TextId="IDT_1600_ms" Content="160" />
+                        <Assign TextId="IDT_1800_ms" Content="180" />
+                        <Assign TextId="IDT_2000_ms" Content="200" />   
+                    </Assignments>
+                </ValueItem>
+             
+                <!-- Block length -->
+                <ValueItem ID="REF_BLOCK_LENGTH_ID">               
+                    <Help TextId="IDT_BLOCK_LENGTH_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_1_BYTE" Content="1" />
+                        <Assign TextId="IDT_2_BYTES" Content="2" />
+                        <Assign TextId="IDT_4_BYTES" Content="4" />
+                        <Assign TextId="IDT_8_BYTES" Content="8" />
+                        <Assign TextId="IDT_16_BYTES" Content="16" />
+                        <Assign TextId="IDT_32_BYTES" Content="32" />
+                        <Assign TextId="IDT_64_BYTES" Content="64" />
+                        <Assign TextId="IDT_128_BYTES" Content="128" />
+                        <Assign TextId="IDT_255_BYTES" Content="255" />                        
+                    </Assignments>
+                </ValueItem>
+ 
+                <!-- Power stage parameter -->
+                <ValueItem ID="REF_OVERLOAD_DETECT_ID">               
+                    <Help TextId="IDT_OVERLOAD_DETECT_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />                        
+                    </Assignments>
+                </ValueItem>
+
+                <ValueItem ID="REF_OVERCURRENT_DETECT_ID">               
+                    <Help TextId="IDT_OVERCURRENT_DETECT_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />                        
+                    </Assignments>
+                </ValueItem>
+                                      
+                <!-- UID reading control parameter -->
+                <ValueItem ID="REF_UID_EDGE_CONTROL_ID">               
+                    <Help TextId="IDT_UID_EDGE_CONTROL_HELP" />                 
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />                        
+                    </Assignments>
+                </ValueItem>
+
+                <!-- Transponder/UID delay time parameter -->                
+                <ValueItem ID="REF_TP_BIT_DELAYED_ID">             
+                    <Help TextId="IDT_TP_BIT_DELAYED_HELP" />
+                    <Assignments>
+                        <Assign TextId="IDT_OFF" Content="0" />
+                        <Assign TextId="IDT_ON" Content="1" />                        
+                    </Assignments>
+                </ValueItem>
+                                                    
+            </ValueList>                
+           
+            <!--*************************************************************************-->
+            <!--   Diagnosis list, User Structure Identifier 0x8000                      --> 
+            <!--*************************************************************************-->
+            <ChannelDiagList>
+                <!-- Difference 0x100 between each diagnosis section --> 
+                 <ChannelDiagItem ErrorType="272">
+                    <Name TextId="IDT_CDiag_Text_0x0110" />
+                    <Help TextId="IDT_CDiag_Help_0x0110" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="288">
+                    <Name TextId="IDT_CDiag_Text_0x0120" />
+                    <Help TextId="IDT_CDiag_Help_0x0120" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="304">
+                    <Name TextId="IDT_CDiag_Text_0x0130" />
+                    <Help TextId="IDT_CDiag_Help_0x0130" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="320">
+                    <Name TextId="IDT_CDiag_Text_0x0140" />
+                    <Help TextId="IDT_CDiag_Help_0x0140" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="416">
+                    <Name TextId="IDT_CDiag_Text_0x01A0" />
+                    <Help TextId="IDT_CDiag_Help_0x01A0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="432">
+                    <Name TextId="IDT_CDiag_Text_0x01B0" />
+                    <Help TextId="IDT_CDiag_Help_0x01B0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="448">
+                    <Name TextId="IDT_CDiag_Text_0x01C0" />
+                    <Help TextId="IDT_CDiag_Help_0x01C0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="528">
+                    <Name TextId="IDT_CDiag_Text_0x0210" />
+                    <Help TextId="IDT_CDiag_Help_0x0210" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1040">
+                    <Name TextId="IDT_CDiag_Text_0x0410" />
+                    <Help TextId="IDT_CDiag_Help_0x0410" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1057">
+                    <Name TextId="IDT_CDiag_Text_0x0421" />
+                    <Help TextId="IDT_CDiag_Help_0x0421" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1072">
+                    <Name TextId="IDT_CDiag_Text_0x0430" />
+                    <Help TextId="IDT_CDiag_Help_0x0430" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1088">
+                    <Name TextId="IDT_CDiag_Text_0x0440" />
+                    <Help TextId="IDT_CDiag_Help_0x0440" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1153">
+                    <Name TextId="IDT_CDiag_Text_0x0481" />
+                    <Help TextId="IDT_CDiag_Help_0x0481" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1154">
+                    <Name TextId="IDT_CDiag_Text_0x0482" />
+                    <Help TextId="IDT_CDiag_Help_0x0482" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1155">
+                    <Name TextId="IDT_CDiag_Text_0x0483" />
+                    <Help TextId="IDT_CDiag_Help_0x0483" />
+                </ChannelDiagItem>               
+                <ChannelDiagItem ErrorType="1120">
+                    <Name TextId="IDT_CDiag_Text_0x0460" />
+                    <Help TextId="IDT_CDiag_Help_0x0460" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1136">
+                    <Name TextId="IDT_CDiag_Text_0x0470" />
+                    <Help TextId="IDT_CDiag_Help_0x0470" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1152">
+                    <Name TextId="IDT_CDiag_Text_0x0480" />
+                    <Help TextId="IDT_CDiag_Help_0x0480" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1168">
+                    <Name TextId="IDT_CDiag_Text_0x0490" />
+                    <Help TextId="IDT_CDiag_Help_0x0490" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1184">
+                    <Name TextId="IDT_CDiag_Text_0x04A0" />
+                    <Help TextId="IDT_CDiag_Help_0x04A0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1200">
+                    <Name TextId="IDT_CDiag_Text_0x04B0" />
+                    <Help TextId="IDT_CDiag_Help_0x04B0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1216">
+                    <Name TextId="IDT_CDiag_Text_0x04C0" />
+                    <Help TextId="IDT_CDiag_Help_0x04C0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1232">
+                    <Name TextId="IDT_CDiag_Text_0x04D0" />
+                    <Help TextId="IDT_CDiag_Help_0x04D0" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1024">
+                    <Name TextId="IDT_CDiag_Text_0x0400" />
+                    <Help TextId="IDT_CDiag_Help_0x0400" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1025">
+                    <Name TextId="IDT_CDiag_Text_0x0401" />
+                    <Help TextId="IDT_CDiag_Help_0x0401" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1026">
+                    <Name TextId="IDT_CDiag_Text_0x0402" />
+                    <Help TextId="IDT_CDiag_Help_0x0402" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1027">
+                    <Name TextId="IDT_CDiag_Text_0x0403" />
+                    <Help TextId="IDT_CDiag_Help_0x0403" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1028">
+                    <Name TextId="IDT_CDiag_Text_0x0404" />
+                    <Help TextId="IDT_CDiag_Help_0x0404" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1029">
+                    <Name TextId="IDT_CDiag_Text_0x0405" />
+                    <Help TextId="IDT_CDiag_Help_0x0405" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1030">
+                    <Name TextId="IDT_CDiag_Text_0x0406" />
+                    <Help TextId="IDT_CDiag_Help_0x0406" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1031">
+                    <Name TextId="IDT_CDiag_Text_0x0407" />
+                    <Help TextId="IDT_CDiag_Help_0x0407" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1032">
+                    <Name TextId="IDT_CDiag_Text_0x0408" />
+                    <Help TextId="IDT_CDiag_Help_0x0408" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1033">
+                    <Name TextId="IDT_CDiag_Text_0x0409" />
+                    <Help TextId="IDT_CDiag_Help_0x0409" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1034">
+                    <Name TextId="IDT_CDiag_Text_0x040A" />
+                    <Help TextId="IDT_CDiag_Help_0x040A" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1035">
+                    <Name TextId="IDT_CDiag_Text_0x040B" />
+                    <Help TextId="IDT_CDiag_Help_0x040B" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1169">
+                    <Name TextId="IDT_CDiag_Text_0x0491" />
+                    <Help TextId="IDT_CDiag_Help_0x0491" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1170">
+                    <Name TextId="IDT_CDiag_Text_0x0492" />
+                    <Help TextId="IDT_CDiag_Help_0x0492" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1171">
+                    <Name TextId="IDT_CDiag_Text_0x0493" />
+                    <Help TextId="IDT_CDiag_Help_0x0493" />
+                </ChannelDiagItem>
+
+                <ChannelDiagItem ErrorType="1408">
+                    <Name TextId="IDT_CDiag_Text_0x0580" />
+                    <Help TextId="IDT_CDiag_Help_0x0580" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1280">
+                    <Name TextId="IDT_CDiag_Text_0x0500" />
+                    <Help TextId="IDT_CDiag_Help_0x0500" />
+                </ChannelDiagItem>
+                <ChannelDiagItem ErrorType="1584">
+                    <Name TextId="IDT_CDiag_Text_0x0630" />
+                    <Help TextId="IDT_CDiag_Help_0x0630" />
+                </ChannelDiagItem>
+            </ChannelDiagList>            
+
+            <!-- Channel diagnosis (defined by PNO), Channel diagnosis (manufacturer specific), Extended channel diagnosis (defined by PNO), Extended channel diagnosis (manufacturer specific) --> 
+            
+            <!--*************************************************************************-->
+            <!--   Graphic list                                                          -->
+            <!--*************************************************************************-->
+            <GraphicsList>
+                <GraphicItem ID="IDG_DTE101_1" GraphicFile="GSDML-0136-E101-DTE101" />      
+            </GraphicsList>
+
+            <!--*************************************************************************-->
+            <!--   Categories                                                            -->
+            <!--*************************************************************************-->                
+            <CategoryList>
+                <CategoryItem ID="IDC_RFID_MODULES_CATALOG_DIRECTORY" TextId="IDT1_RFID_MODULES_CATALOG_DIRECTORY" />             
+                <CategoryItem ID="IDC_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1" TextId="IDT_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1_4" />                               
+            </CategoryList>
+
+            <!--*************************************************************************-->
+            <!--   Text-List                                                             -->
+            <!--*************************************************************************-->
+            <ExternalTextList>
+                <PrimaryLanguage>
+                    <!-- DAP description text -->
+                    <Text TextId="IDT_FamilyDescription" Value="RFID evaluation unit for up to 4 read/write heads" />                     
+                    <!-- Edit_version of GSDML file in next line to be displayed in PLC info text:                       VX.X.X  -->
+                    <Text TextId="IDT_INFO_ModInfo_InfoTextId_DAP1_RFID_EVU" Value="RFID evaluation unit for PROFINET-IO V2.3.3" />                                                                          
+                    <Text TextId="IDT_DTELF_HF" Value="DTELF/HFABRWPNUS00" />                          
+                    <Text TextId="PN_IO" Value="PROFINET-IO" />                          
+                    <Text TextId="IDT1_RFID_MODULES_CATALOG_DIRECTORY" Value="RFID" /> 
+                    <Text TextId="IDT_DTE101_PN" Value="DTE101-PN" />                 
+					
+                    <!-- SystemDefinedSubmoduleList - Name -->
+                    <Text TextId="IDT_INTERFACE" Value="PROFINET-IO" />                          
+                    <Text TextId="IDT_INTERFACE_PORT1" Value="PORT 1" />  
+                    <Text TextId="IDT_INTERFACE_PORT2" Value="PORT 2" />                      
+                    <Text TextId="IDT_DEVICE_SPECIFIC_PARA_DIRECTORY" Value="Device specific parameters" />  
+                    <Text TextId="IDT_MODULE_INACTIVE_PARA_DIRECTORY" Value="Module Inactive specific parameters" />  
+                    <Text TextId="IDT_MODULE_INPUT_PARA_DIRECTORY" Value="Module Input specific parameters" />  
+                    <Text TextId="IDT_MODULE_OUTPUT_PARA_DIRECTORY" Value="Module Output specific parameters" />  
+                    <Text TextId="IDT_MODULE_RWH_RW_PARA_DIRECTORY" Value="Module RWH RW specific parameters" />                                     
+                    
+                    <!-- Device specific parameter -->
+                    <!-- Slot 0 -->
+                    <Text TextId="IDT_FAIL_SAFE_SELECTION" Value="Failsafe mode" />                     
+                    <Text TextId="IDT_EXT_DIAG_SELECTION" Value="Extended diagnosis" />                     
+                    <Text TextId="IDT_DIAG_INT_SELECTION" Value="Failsafe mode" />                                         
+
+                    <Text TextId="IDT_FAIL_SAFE_ID" Value="Failsafe mode" />                     
+                    <Text TextId="IDT_EXT_DIAG_ID" Value="Extended diagnosis" /> 
+                    <Text TextId="IDT_DIAG_INT_ID" Value="Diagnosis interrupt" />                                                       
+
+                    <Text TextId="IDT_ON" Value="On" />  
+                    <Text TextId="IDT_OFF" Value="Off" />                      
+                 
+                    <Text TextId="IDT_PHY1_CTRL_SETTING_ID" Value="Phy control register 1 setting" /> 
+                    <Text TextId="IDT_PHY2_CTRL_SETTING_ID" Value="Phy control register 2 setting" />                 
+
+                    <Text TextId="IDT_PHY1_CTRL_VALUE1" Value="Default value" />
+                    <Text TextId="IDT_PHY1_CTRL_VALUE2" Value="Customer value, see setting IDT_PHY1_CTRL_VALUE2 of this GSDML file" />
+                    
+                    <Text TextId="IDT_PHY2_CTRL_VALUE1" Value="Default value" /> 
+                    <Text TextId="IDT_PHY2_CTRL_VALUE2" Value="Customer value, see setting IDT_PHY2_CTRL_VALUE2 of this GSDML file" />                    
+                 
+                    <!-- DAP module description -->
+                    <Text TextId="IDT_RFID_MODULES_CATALOG_DIRECTORY" Value="Slots available" />  
+                    <Text TextId="IDT_RFID_MODULES_CATALOG_DIRECTORY_SLOT_1_4" Value="SLOT 1..4" />                      
+                 
+                    <!-- ModuleInfo - Name -->
+                    <!-- Slot 1..4 -->
+                    <Text TextId="IDT_MODULE_INACTIVE_CATALOG" Value="INACTIVE" />  
+                    <Text TextId="IDT_MODULE_INACTIVE_CATALOG_INFO" Value="Channel deactivated ==&gt; length 20 bytes" />  
+                    <Text TextId="IDT_MODULE_INACTIVE" Value="Channel deactivated" />  
+                                            
+                    <Text TextId="IDT_MODULE_INPUT_CATALOG" Value="INPUT" />  
+                    <Text TextId="IDT_MODULE_INPUT_CATALOG_INFO" Value="IEC61131 inputs ==&gt; length 20 bytes" />                        
+                    <Text TextId="IDT_MODULE_INPUT" Value="IEC61131 inputs" />  
+                                           
+                    <Text TextId="IDT_MODULE_OUTPUT_CATALOG" Value="OUTPUT" />  
+                    <Text TextId="IDT_MODULE_OUTPUT_CATALOG_INFO" Value="IEC61131 output/input ==&gt; length 20 bytes" />                                              
+                    <Text TextId="IDT_MODULE_OUTPUT" Value="IEC61131 output/input" />  
+                                          
+                    <Text TextId="IDT_MODULE_RWH_RW_CATALOG" Value="RWH_RW" />  
+                    <Text TextId="IDT_MODULE_RWH_RW_CATALOG_INFO" Value="Read/write head ==&gt; length 20 bytes" />                        
+                    <Text TextId="IDT_MODULE_RWH_RW" Value="Read/write head" />
+
+                    <!-- Channel number --> 
+                    <Text TextId="IDT_CHANNEL_NUMBER_ID" Value="Channel number" />
+                    <Text TextId="IDT_CHANNEL_NUMBER_HELP" Value="Channel number is set over plugin the module into slot 1..4" />
+                    <Text TextId="IDT_CHANNEL_NOT_USED" Value="Not setable over parameter" />               
+
+                    <!-- Delay times -->                        
+                    <Text TextId="IDT_DATA_HOLDTIME_ID" Value="Data hold time" />
+                    <Text TextId="IDT_DATA_HOLDTIME_HELP" Value="Data hold time for inputs, UID and transponder present bit TP" />                                      
+                    <Text TextId="IDT_0_ms" Value="0 ms" />
+                    <Text TextId="IDT_10_ms" Value="10 ms" />
+                    <Text TextId="IDT_20_ms" Value="20 ms" />
+                    <Text TextId="IDT_40_ms" Value="40 ms" />
+                    <Text TextId="IDT_60_ms" Value="60 ms" />
+                    <Text TextId="IDT_80_ms" Value="80 ms" />
+                    <Text TextId="IDT_100_ms" Value="100 ms" />
+                    <Text TextId="IDT_200_ms" Value="200 ms" /> 
+                    <Text TextId="IDT_400_ms" Value="400 ms" /> 
+                    <Text TextId="IDT_600_ms" Value="600 ms" /> 
+                    <Text TextId="IDT_800_ms" Value="800 ms" /> 
+                    <Text TextId="IDT_1000_ms" Value="1000 ms" />
+                    <Text TextId="IDT_1200_ms" Value="1200 ms" />
+                    <Text TextId="IDT_1400_ms" Value="1400 ms" />
+                    <Text TextId="IDT_1600_ms" Value="1600 ms" />
+                    <Text TextId="IDT_1800_ms" Value="1800 ms" /> 
+                    <Text TextId="IDT_2000_ms" Value="2000 ms" />
+
+                    <!-- Block length -->
+                    <Text TextId="IDT_BLOCK_LENGTH_ID" Value="Transponder data block length" />
+                    <Text TextId="IDT_BLOCK_LENGTH_HELP" Value="Data block length of the transponder, can be obtained from data sheet of the transponder" />                  
+                    <Text TextId="IDT_1_BYTE" Value="1 Byte" />
+                    <Text TextId="IDT_2_BYTES" Value="2 Byte" />                    
+                    <Text TextId="IDT_4_BYTES" Value="4 Byte" />                    
+                    <Text TextId="IDT_8_BYTES" Value="8 Byte" />                    
+                    <Text TextId="IDT_16_BYTES" Value="16 Byte" />                     
+                    <Text TextId="IDT_32_BYTES" Value="32 Byte" />                     
+                    <Text TextId="IDT_64_BYTES" Value="64 Byte" />                     
+                    <Text TextId="IDT_128_BYTES" Value="128 Byte" />                    
+                    <Text TextId="IDT_255_BYTES" Value="255 Byte" />                    
+                    
+                    <!-- Power stage parameter -->
+                    <Text TextId="IDT_OVERLOAD_DETECT_ID" Value="Overload detection" />
+                    <Text TextId="IDT_OVERLOAD_DETECT_HELP" Value="Overload detection on output power stage at IO-1 ... IO-4" />
+                    <Text TextId="IDT_OVERCURRENT_DETECT_ID" Value="Overcurrent detection" />                    
+                    <Text TextId="IDT_OVERCURRENT_DETECT_HELP" Value="Overcurrent detection on output power stage at IO-1 ... IO-4" />                      
+
+                    <!-- RFID reading control parameter -->
+                    <Text TextId="IDT_UID_EDGE_CONTROL_ID" Value="UID edge controlled" />                    
+                    <Text TextId="IDT_UID_EDGE_CONTROL_HELP" Value="Reading of UID of transponder controlled by bit RD" />                    
+                    <Text TextId="IDT_TP_BIT_DELAYED_ID" Value="TP bit hold time" />
+                    <Text TextId="IDT_TP_BIT_DELAYED_HELP" Value="TP bit is hold according to setting of data hold time" />                                                     
+                    
+                    <!-- Module selection -->
+                    <Text TextId="IDT_CHANNEL_CONFIGURATION_ID" Value="Module function" />
+                    <Text TextId="IDT_CHANNEL_CONFIGURATION_HELP" Value="Selected module function" />
+                    <Text TextId="IDT_MOD_INACTIVE" Value="Inactive" />                                    
+                    <Text TextId="IDT_MOD_INPUT" Value="Input" />
+                    <Text TextId="IDT_MOD_OUTPUT" Value="Output" />
+                    <Text TextId="IDT_MOD_RWH_RW" Value="RWH_RW" />
+                 
+                    <!-- Diagnosis text information -->
+                    <Text TextId="IDT_CDiag_Text_0x0100" Value="Error 100" />
+                    <Text TextId="IDT_CDiag_Help_0x0100" Value="---" />
+                    <Text TextId="IDT_CDiag_Text_0x0110" Value="Transponder data error" />
+                    <Text TextId="IDT_CDiag_Help_0x0110" Value="Retry reading / writing of the transponder data, If it fail again, replace transponder" />
+                    <Text TextId="IDT_CDiag_Text_0x0120" Value="Transponder left the area of the read/write field" />
+                    <Text TextId="IDT_CDiag_Help_0x0120" Value="Reduce the passing by speed of the transponder " />
+                    <Text TextId="IDT_CDiag_Text_0x0130" Value="Requested read/write data size does not fit into transponder memory" />
+                    <Text TextId="IDT_CDiag_Help_0x0130" Value="Check that address or data length fits to transponder data" />
+                    <Text TextId="IDT_CDiag_Text_0x0140" Value="Transponder defective" />
+                    <Text TextId="IDT_CDiag_Help_0x0140" Value="Replace transponder cause not useable" />
+                    <Text TextId="IDT_CDiag_Text_0x01A0" Value="Transponder data area locked" />
+                    <Text TextId="IDT_CDiag_Help_0x01A0" Value="Unlock transponder data area" />
+                    <Text TextId="IDT_CDiag_Text_0x01B0" Value="Communication error with transponder or antenna" />
+                    <Text TextId="IDT_CDiag_Help_0x01B0" Value="General error while accessing transponder data. " />
+                    <Text TextId="IDT_CDiag_Text_0x01C0" Value="Internal error: ID-Link stack error" />
+                    <Text TextId="IDT_CDiag_Help_0x01C0" Value="Please reset the device. If problem still occur please call ifm service center. Error code F1FE0C" />
+                    <Text TextId="IDT_CDiag_Text_0x0210" Value="Timeout occurred while accessing transponder data area" />
+                    <Text TextId="IDT_CDiag_Help_0x0210" Value="Increase the time the transponder is present within the antenna field " />
+                    <Text TextId="IDT_CDiag_Text_0x0410" Value="Power supply failure" />
+                    <Text TextId="IDT_CDiag_Help_0x0410" Value="Check power supply, must be within range 18V...32V" />
+                    <Text TextId="IDT_CDiag_Text_0x0421" Value="Allowed operating temperature exceed" />
+                    <Text TextId="IDT_CDiag_Help_0x0421" Value="Check that ambient temperature does not exceed 60°C/ 140°F, if not possible reduce current consumption at connectors IO-1 . IO-4." />
+                    <Text TextId="IDT_CDiag_Text_0x0430" Value="Communication with antenna failed" />
+                    <Text TextId="IDT_CDiag_Help_0x0430" Value="Check that connection to antenna is well and not disturbed by high EMC environment" />
+                    <Text TextId="IDT_CDiag_Text_0x0440" Value="Internal error: Buffer overflow of ID-Link Server  detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0440" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE04" />
+                    <Text TextId="IDT_CDiag_Text_0x0481" Value="Internal error: ID-Link Server inactive" />
+                    <Text TextId="IDT_CDiag_Help_0x0481" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE81" />
+                    <Text TextId="IDT_CDiag_Text_0x0482" Value="Internal error: Command error by  ID-Link Server detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0482" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE82" />
+                    <Text TextId="IDT_CDiag_Text_0x0483" Value="Internal error: Invalid parameter for ID-Link Server detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0483" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE83" />
+                    <Text TextId="IDT_CDiag_Text_0x0460" Value="Internal error:  Missing parameter for delay time detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0460" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE86" />
+                    <Text TextId="IDT_CDiag_Text_0x0470" Value="Internal error: Reconfiguration of IO-Port not allowed " />
+                    <Text TextId="IDT_CDiag_Help_0x0470" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE87" />
+                    <Text TextId="IDT_CDiag_Text_0x0480" Value="Internal error: Invalid channel number by IO-Port server detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0480" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE88" />
+                    <Text TextId="IDT_CDiag_Text_0x0490" Value="Internal error: Command error by  IO-Port Server detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0490" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE89" />
+                    <Text TextId="IDT_CDiag_Text_0x04A0" Value="Internal error: Data invalid received from antenna" />
+                    <Text TextId="IDT_CDiag_Help_0x04A0" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE8A" />
+                    <Text TextId="IDT_CDiag_Text_0x04B0" Value="Internal error: Invalid object requested from IO-Port Server " />
+                    <Text TextId="IDT_CDiag_Help_0x04B0" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE8B" />
+                    <Text TextId="IDT_CDiag_Text_0x04C0" Value="Internal error: Read/write data size within command not valid" />
+                    <Text TextId="IDT_CDiag_Help_0x04C0" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE8C" />
+                    <Text TextId="IDT_CDiag_Text_0x04D0" Value="IO-Port is reconfigured" />
+                    <Text TextId="IDT_CDiag_Help_0x04D0" Value="Check that Ident Unit is not reconfigured while device exchanges IO data with Scanner" />
+                    <Text TextId="IDT_CDiag_Text_0x0400" Value="No antenna on port detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0400" Value="Check that antenna is connected at connector IO-x." />
+                    <Text TextId="IDT_CDiag_Text_0x0401" Value="Short circuit at output driver detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0401" Value="Check that output at C/Qo has no short circuit" />
+                    <Text TextId="IDT_CDiag_Text_0x0402" Value="Undervoltage at output driver detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0402" Value="Check power supply at AUX is &gt; 18V" />
+                    <Text TextId="IDT_CDiag_Text_0x0403" Value="Overload at IO-Port terminal  L+ detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0403" Value="Check load at pin L+ is lower than 500 mA" />
+                    <Text TextId="IDT_CDiag_Text_0x0404" Value="Overtemperature at  IO-Port detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0404" Value="Check that load at output C/Qo and L+ does not exceed 30W in sum" />
+                    <Text TextId="IDT_CDiag_Text_0x0405" Value="Communication with antenna lost cause of line break " />
+                    <Text TextId="IDT_CDiag_Help_0x0405" Value="Check connection cable to antenna" />
+                    <Text TextId="IDT_CDiag_Text_0x0406" Value="Internal error: Output driver at IO-Port reached upper limit  at  terminal C/Qo " />
+                    <Text TextId="IDT_CDiag_Help_0x0406" Value="Check load at output C/Q dos not exceed 0.5A" />
+                    <Text TextId="IDT_CDiag_Text_0x0407" Value="Internal error: Output driver detects undervoltage at IO-Port terminal C/Qo" />
+                    <Text TextId="IDT_CDiag_Help_0x0407" Value="Check load at output C/Q does not force output voltage under 13V " />
+                    <Text TextId="IDT_CDiag_Text_0x0408" Value="Internal error: Antenna failure detected" />
+                    <Text TextId="IDT_CDiag_Help_0x0408" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE9008" />
+                    <Text TextId="IDT_CDiag_Text_0x0409" Value="Antenna communication error" />
+                    <Text TextId="IDT_CDiag_Help_0x0409" Value="Check communication to antenna is not disturbed by EMC" />
+                    <Text TextId="IDT_CDiag_Text_0x040A" Value="Internal error: I²C communication error" />
+                    <Text TextId="IDT_CDiag_Help_0x040A" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE900A" />
+                    <Text TextId="IDT_CDiag_Text_0x040B" Value="Internal error: I²C communication parity error " />
+                    <Text TextId="IDT_CDiag_Help_0x040B" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE900B" />
+                    <Text TextId="IDT_CDiag_Text_0x0491" Value="Internal error: IO-Port parameter selector  flag contains invalid bits" />
+                    <Text TextId="IDT_CDiag_Help_0x0491" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE91" />
+                    <Text TextId="IDT_CDiag_Text_0x0492" Value="Internal error: ID Link Master detects  invalid parameter" />
+                    <Text TextId="IDT_CDiag_Help_0x0492" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE92" />
+                    <Text TextId="IDT_CDiag_Text_0x0493" Value="Internal error: Generic error in System Control" />
+                    <Text TextId="IDT_CDiag_Help_0x0493" Value="Please reset the device. If problem still occur please call ifm service center. Error code F4FE93" />
+                    <Text TextId="IDT_CDiag_Text_0x0580" Value="Command from another user being processed  " />
+                    <Text TextId="IDT_CDiag_Help_0x0580" Value="Check that no new command is started while other other command is running " />
+                    <Text TextId="IDT_CDiag_Text_0x0500" Value="More than one command requested in control word bit " />
+                    <Text TextId="IDT_CDiag_Help_0x0500" Value="Check that bit DR, WR, DIAG are set not set simultanously, cause only one command can be started. " />
+                    <Text TextId="IDT_CDiag_Text_0x0630" Value="Invalid command parameter (e.g. data range)" />
+                    <Text TextId="IDT_CDiag_Help_0x0630" Value="Check that parameters address, length and data length fits into data range" />
+                    
+                    <!-- Div -->
+                    <Text TextId="IDT_UINT16_VALUES" Value="0...65535" />
+                </PrimaryLanguage>
+
+            </ExternalTextList>
+        </ApplicationProcess>
+    </ProfileBody>        
+</ISO15745Profile>
